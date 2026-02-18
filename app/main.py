@@ -53,8 +53,8 @@ def main():
                     content = f.read()
                 
                 print(content)
-    else:
-        print(chat.choices[0].message.content)
+    # else:
+    #     print(chat.choices[0].message.content)
                 
 
     # You can use print statements as follows for debugging, they'll be visible when running tests.
