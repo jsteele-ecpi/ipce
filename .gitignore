@@ -1,5 +1,7 @@
 # manual adds
 install.ps1
+notes/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
