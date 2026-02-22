@@ -72,7 +72,8 @@ def main():
             raise RuntimeError("no choices in response")
 
         # extract message and append to array
-        message = chat.choices[0].message
+        choice = chat.choices[0]
+        message = choice.message
         messages_array.append(message.model_dump())
 
         
@@ -98,14 +99,12 @@ def main():
                     with open(file_path, "w") as f:
                         f.write(content)
         
-        if chat.choices[0].finish_reason == "stop":
+        if choice.finish_reason == "stop":
             break
 
        
-       
-    print(chat.choices[0].message.content)
     # TODO: Uncomment the following line to pass the first stage
-    #     print(chat.choices[0].message.content)
+    print(chat.choices[0].message.content)
                 
 
     # You can use print statements as follows for debugging, they'll be visible when running tests.
