@@ -115,7 +115,7 @@ def main():
                     func_args = json.loads(tool_call.function.arguments)
                     command = func_args["command"]
                     
-                    result = subprocess.run((command), capture_output=True, text=True, check=True)
+                    result = subprocess.run((command), shell=True, capture_output=True, text=True, check=True)
                     
                     if result.returncode != 0:
                         content = result.stderr
