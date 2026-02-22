@@ -85,12 +85,12 @@ def main():
                     with open(file_path, "r") as f:
                         content = f.read()
                     
-                    #print(content)
-                    messages_array.append({
-                        "role": "tool",
-                        "tool_call_id": tool_call.id,
-                        "content": content,
-                        })
+                    # #print(content)
+                    # messages_array.append({
+                    #     "role": "tool",
+                    #     "tool_call_id": tool_call.id,
+                    #     "content": content,
+                    #     })
 
                 elif tool_call.function.name == "Write":
                     func_args = json.loads(tool_call.function.arguments)
@@ -98,6 +98,13 @@ def main():
                     content = func_args["content"]
                     with open(file_path, "w") as f:
                         f.write(content)
+
+                #print(content)
+                messages_array.append({
+                    "role": "tool",
+                    "tool_call_id": tool_call.id,
+                    "content": content,
+                })
         
         if choice.finish_reason == "stop":
             break
