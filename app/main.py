@@ -44,6 +44,27 @@ def main():
                         "required": ["file_path"]
                     }
                 }
+            },
+            {
+                "type": "function",
+                "function": {
+                    "name": "Write",
+                    "description": "Write content to a file",
+                    "parameters": {
+                        "type": "object",
+                        "required": ["file_path", "content"],
+                        "properties": {
+                            "file_path": {
+                                "type": "string",
+                                "description": "The path of the file to write to"
+                            },
+                            "content": {
+                                "type": "string",
+                                "description": "The content to write to the file"
+                            }
+                        }
+                    }
+                }
             }]
         )
 
@@ -70,7 +91,12 @@ def main():
                         "content": content,
                         })
 
-                #elif: "Write"
+                elif tool_call.function.name == "Write":
+                    func_args = json.loads(tool_call.function.arguments)
+                    file_path = func_args["file_path"]
+                    content = func_args["content"]
+                    with open(file_path, "w") as f:
+                        f.write(content)
         
         if chat.choices[0].finish_reason == "stop":
             break
