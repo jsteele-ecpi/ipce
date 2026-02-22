@@ -2,6 +2,7 @@ import argparse
 import os
 import sys
 import json
+import subprocess
 
 from openai import OpenAI
 
@@ -28,7 +29,8 @@ def main():
         chat = client.chat.completions.create(
             model="anthropic/claude-haiku-4.5",
             messages=messages_array,
-            tools=[{
+            tools=[
+            {
                 "type": "function",
                 "function": {
                     "name": "Read",
@@ -65,6 +67,23 @@ def main():
                         }
                     }
                 }
+            },
+            {
+                "type": "function",
+                "function": {
+                    "name": "Bash",
+                    "description": "Execute a shell command",
+                    "parameters": {
+                        "type": "object",
+                        "required": ["command"],
+                        "properties": {
+                            "command": {
+                                "type": "string",
+                                "description": "the command to execute"
+                            },
+                        }
+                    }
+                }
             }]
         )
 
@@ -84,13 +103,6 @@ def main():
                     file_path = func_args["file_path"]
                     with open(file_path, "r") as f:
                         content = f.read()
-                    
-                    # #print(content)
-                    # messages_array.append({
-                    #     "role": "tool",
-                    #     "tool_call_id": tool_call.id,
-                    #     "content": content,
-                    #     })
 
                 elif tool_call.function.name == "Write":
                     func_args = json.loads(tool_call.function.arguments)
@@ -98,6 +110,17 @@ def main():
                     content = func_args["content"]
                     with open(file_path, "w") as f:
                         f.write(content)
+
+                elif tool_call.function.name == "Bash":
+                    func_args = json.loads(tool_call.function.arguments)
+                    command = func_args["command"]
+                    
+                    result = subprocess.run((command), capture_output=True, text=True, check=True)
+                    
+                    if result.returncode != 0:
+                        content = result.stderr
+                    else:
+                        content = result.stdout
 
                 #print(content)
                 messages_array.append({
