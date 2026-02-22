@@ -52,10 +52,10 @@ def main():
 
         # extract message and append to array
         message = chat.choices[0].message
-        messages_array.append(message)
+        messages_array.append(message.model_dump())
 
         
-        if chat.choices[0].tool_calls:  # check for tool_calls
+        if message.tool_calls:  # check for tool_calls
             for tool_call in message.tool_calls:  # loop through each
                 if tool_call.function.name == "Read":
                     func_args = json.loads(tool_call.function.arguments)
@@ -64,13 +64,20 @@ def main():
                         content = f.read()
                     
                     #print(content)
-                    messages_array.append(content)
+                    messages_array.append({
+                        "role": "tool",
+                        "tool_call_id": tool_call.id,
+                        "content": content,
+                        })
 
-                elif:
-            
-                
-        else:
-            print(chat.choices[0].message.content)
+                #elif: "Write"
+        
+        if chat.choices[0].finish_reason == "stop":
+            break
+
+       
+       
+    print(chat.choices[0].message.content)
     # TODO: Uncomment the following line to pass the first stage
     #     print(chat.choices[0].message.content)
                 
