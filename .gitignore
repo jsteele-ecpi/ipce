@@ -1,7 +1,7 @@
 # manual adds
-install.ps1
 notes/
-
+codecrafters/
+build/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -176,5 +176,4 @@ cython_debug/
 .ruff_cache/
 
 # PyPI configuration file
-.pypirccodecrafters/
-build/
+.pypirc
