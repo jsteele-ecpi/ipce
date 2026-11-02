@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/ipce_ecpiadmin.png" alt="IPCE — Intelligent Personal Computing Environment" width="100%">
+</p>
+
 <h1 align="center">IPCE</h1>
 
 <p align="center">
@@ -85,3 +89,26 @@ IPCE is an evolving project, with development driven by curiosity rather than de
 - **Identity & Interface** — Conversational interaction, personality, and visual presence.
 
 Development remains experimental, guided by practical needs, technical curiosity, and the occasional rabbit hole.
+
+
+---
+
+<div align="center">
+
+<details>
+<summary>🤖 AI Acknowledgement</summary>
+
+<br>
+
+The banner image was generated using AI, while portions of the
+documentation and source code were created or refined with the
+assistance of generative AI, including OpenAI's ChatGPT.
+
+<i>
+The ideas, direction, and decisions remain my own.
+AI just helps turn the occasional rabbit hole into something tangible.
+</i>
+
+</details>
+
+</div>
